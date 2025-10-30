@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Login • School Portal{% endblock %}
+{% block content %}
+	<div class="card" style="max-width:480px;margin:32px auto;">
+		<h2>Login</h2>
+		<p>Use your username and password to access your dashboard.</p>
+		<form method="post">
+			<label for="username">Username</label>
+			<input class="input" id="username" name="username" placeholder="e.g. admin" required>
+
+			<label for="password">Password</label>
+			<input class="input" id="password" name="password" type="password" required>
+
+			<div style="margin-top:14px; display:flex; gap:10px; align-items:center;">
+				<button class="button" type="submit">Sign In</button>
+				<span class="badge admin">Default admin: admin / admin123</span>
+			</div>
+		</form>
+	</div>
+{% endblock %}

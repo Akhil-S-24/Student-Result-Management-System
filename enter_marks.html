@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}Enter Marks{% endblock %}
+{% block content %}
+	<h2>Enter Marks & Attendance</h2>
+	<div class="card">
+		<form method="post" id="marksForm">
+			<label for="student_id">Select Student</label>
+			<select class="input" id="student_id" name="student_id" required>
+				<option value="" disabled selected>Choose...</option>
+				{% for sid, s in students.items() %}
+					<option value="{{ sid }}">{{ sid }} — {{ s.full_name or sid }}</option>
+				{% endfor %}
+			</select>
+
+			<label>Subjects and Marks (0-100)</label>
+			<div id="rows"></div>
+			<button type="button" class="button alt" onclick="addRow()" style="margin-top:8px;">+ Add Subject</button>
+
+			<div class="form-row" style="margin-top:14px;">
+				<div>
+					<label>Total</label>
+					<input class="input" id="total" readonly>
+				</div>
+				<div>
+					<label>Average</label>
+					<input class="input" id="average" readonly>
+				</div>
+			</div>
+			<div class="form-row">
+				<div>
+					<label>Grade</label>
+					<input class="input" id="grade" readonly>
+				</div>
+				<div>
+					<label for="attendance">Attendance %</label>
+					<input class="input" id="attendance" name="attendance" type="number" min="0" max="100" step="0.01" value="100">
+				</div>
+			</div>
+
+			<div style="margin-top:14px;">
+				<button class="button" type="submit">Save Result</button>
+				<a class="button alt" href="{{ url_for('teacher_dashboard') }}" style="margin-left:8px;">Back</a>
+			</div>
+		</form>
+	</div>
+
+	<script>
+		function addRow(name = '', mark = '') {
+			const wrap = document.getElementById('rows');
+			const row = document.createElement('div');
+			row.className = 'form-row';
+			row.style.marginTop = '8px';
+			row.innerHTML = `
+				<div>
+					<input class="input" name="subject[]" placeholder="Subject name" value="${name}" required>
+				</div>
+				<div style="display:flex; gap:8px; align-items:center;">
+					<input class="input mark" name="mark[]" type="number" min="0" max="100" step="0.01" placeholder="0-100" value="${mark}" required oninput="recalc()">
+					<button type="button" class="button" style="background: linear-gradient(45deg, #ff6b6b, #ff8787); color:#222;" onclick="this.parentElement.parentElement.remove(); recalc();">Remove</button>
+				</div>
+			`;
+			wrap.appendChild(row);
+			recalc();
+		}
+		function recalc() {
+			const marks = Array.from(document.querySelectorAll('.mark')).map(i => parseFloat(i.value)||0);
+			const total = marks.reduce((a,b)=>a+b, 0);
+			const avg = marks.length ? total / marks.length : 0;
+			document.getElementById('total').value = total.toFixed(2);
+			document.getElementById('average').value = avg.toFixed(2);
+			let grade = 'F';
+			if (avg >= 90) grade = 'A+'; else if (avg >= 80) grade = 'A'; else if (avg >= 70) grade = 'B'; else if (avg >= 60) grade = 'C'; else if (avg >= 50) grade = 'D';
+			document.getElementById('grade').value = grade;
+		}
+		// Seed a couple of rows by default
+		addRow('Math', '90');
+		addRow('Science', '85');
+	</script>
+{% endblock %}

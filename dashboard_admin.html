@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+	<h2>Admin Dashboard <span class="badge admin">ADMIN</span></h2>
+	<div class="card-grid">
+		<div class="card">
+			<h3>Users</h3>
+			<p>Manage teachers and students.</p>
+			<a class="button" href="{{ url_for('admin_users') }}">View All Users</a>
+			<a class="button alt" style="margin-left:8px" href="{{ url_for('admin_create_user') }}">Create User</a>
+		</div>
+		<div class="card">
+			<h3>Teachers</h3>
+			<p>Total: {{ teachers|length }}</p>
+			<ul>
+				{% for t in teachers %}
+					<li>{{ t }}</li>
+				{% else %}
+					<li>No teachers yet.</li>
+				{% endfor %}
+			</ul>
+		</div>
+		<div class="card">
+			<h3>Students</h3>
+			<p>Total: {{ students|length }}</p>
+			<ul>
+				{% for s in students %}
+					<li>{{ s }}</li>
+				{% else %}
+					<li>No students yet.</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+{% endblock %}

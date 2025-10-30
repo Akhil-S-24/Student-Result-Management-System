@@ -1,0 +1,48 @@
+{
+  "users": {
+    "admin": {
+      "password": "admin123",
+      "role": "admin",
+      "full_name": "Administrator"
+    },
+    "Shan": {
+      "password": "Shan123",
+      "role": "teacher",
+      "full_name": "Shan sm"
+    },
+    "abcd": {
+      "password": "abcd123",
+      "role": "student",
+      "full_name": "abcd"
+    }
+  },
+  "students": {
+    "abcd": {
+      "full_name": "abcd"
+    }
+  },
+  "teachers": {
+    "Shan": {
+      "full_name": "Shan sm"
+    }
+  },
+  "results": {
+    "abcd": {
+      "student_id": "abcd",
+      "subjects": [
+        {
+          "name": "Math",
+          "mark": 90.0
+        },
+        {
+          "name": "Science",
+          "mark": 85.0
+        }
+      ],
+      "total": 175.0,
+      "average": 87.5,
+      "grade": "A",
+      "attendance": 75.0
+    }
+  }
+}

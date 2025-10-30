@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Create User{% endblock %}
+{% block content %}
+	<h2>Create User</h2>
+	<div class="card" style="max-width:720px;">
+		<form method="post">
+			<div class="form-row">
+				<div>
+					<label for="username">Username</label>
+					<input class="input" id="username" name="username" required>
+				</div>
+				<div>
+					<label for="full_name">Full Name</label>
+					<input class="input" id="full_name" name="full_name" placeholder="Optional">
+				</div>
+			</div>
+			<div class="form-row">
+				<div>
+					<label for="password">Password</label>
+					<input class="input" id="password" name="password" type="password" required>
+				</div>
+				<div>
+					<label for="role">Role</label>
+					<select class="input" id="role" name="role" required>
+						<option value="teacher">Teacher</option>
+						<option value="student">Student</option>
+					</select>
+				</div>
+			</div>
+			<div style="margin-top:14px;">
+				<button class="button" type="submit">Create</button>
+				<a class="button alt" href="{{ url_for('admin_users') }}" style="margin-left:8px;">Back</a>
+			</div>
+		</form>
+	</div>
+{% endblock %}
