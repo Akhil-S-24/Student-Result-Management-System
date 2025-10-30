@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Manage Users{% endblock %}
+{% block content %}
+	<h2>All Users</h2>
+	<div class="card">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Username</th>
+					<th>Full Name</th>
+					<th>Role</th>
+					<th>Password</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for username, info in users.items() %}
+					<tr>
+						<td>{{ username }}</td>
+						<td>{{ info.full_name or username }}</td>
+						<td>
+							{% if info.role == 'admin' %}<span class="badge admin">admin</span>{% endif %}
+							{% if info.role == 'teacher' %}<span class="badge teacher">teacher</span>{% endif %}
+							{% if info.role == 'student' %}<span class="badge student">student</span>{% endif %}
+						</td>
+						<td>{{ info.password }}</td>
+						<td>
+							{% if username != 'admin' %}
+								<a class="button" style="background: linear-gradient(45deg, #ff6b6b, #ff8787); color:#222;" href="{{ url_for('admin_delete_user', username=username) }}" onclick="return confirm('Delete user {{ username }}?')">Delete</a>
+							{% else %}
+								<span class="badge">protected</span>
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div style="margin-top:12px;">
+		<a class="button alt" href="{{ url_for('admin_create_user') }}">Create new user</a>
+	</div>
+{% endblock %}

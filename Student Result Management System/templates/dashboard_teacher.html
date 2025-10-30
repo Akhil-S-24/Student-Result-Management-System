@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Teacher Dashboard{% endblock %}
+{% block content %}
+	<h2>Teacher Dashboard <span class="badge teacher">TEACHER</span></h2>
+	<div class="card-grid">
+		<div class="card">
+			<h3>Enter Marks & Attendance</h3>
+			<p>Record results for a student. Totals and grade are automatic.</p>
+			<a class="button" href="{{ url_for('teacher_enter_marks') }}">Open Entry Form</a>
+		</div>
+		<div class="card">
+			<h3>Students</h3>
+			<ul>
+				{% for sid, s in students.items() %}
+					<li>{{ sid }} — {{ s.full_name or sid }}</li>
+				{% else %}
+					<li>No students yet. Ask admin to add.</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Student Dashboard{% endblock %}
+{% block content %}
+	<h2>Student Dashboard <span class="badge student">STUDENT</span></h2>
+	{% if result %}
+		<div class="card">
+			<h3>Your Result</h3>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Subject</th>
+						<th>Mark</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for s in result.subjects %}
+						<tr>
+							<td>{{ s.name }}</td>
+							<td>{{ s.mark }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<p><strong>Total:</strong> {{ result.total }} | <strong>Average:</strong> {{ result.average }} | <strong>Grade:</strong> {{ result.grade }} | <strong>Attendance:</strong> {{ result.attendance|pct }}</p>
+		</div>
+	{% else %}
+		<div class="card">
+			<p>No result found yet. Please check back later.</p>
+		</div>
+	{% endif %}
+{% endblock %}
